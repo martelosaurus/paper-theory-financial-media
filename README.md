@@ -1,2 +1,2 @@
-# a-theory-of-financial-media
-Numerical solutions of A Theory of Financial Media
+# paper-theory-financial-media
+Numerical solutions for A Theory of Financial Media
