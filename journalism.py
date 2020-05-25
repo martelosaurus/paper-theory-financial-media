@@ -11,112 +11,135 @@ plt_opts = {'linewidth' : 4, 'color' : 'black'}
 lab_opts = {'fontsize' : 20}
 
 # ------------------------------------------------------------------------------
-# functions
-@np.vectorize
-def _part(mu_v,v_hat):
-    """Partition: returns Boolean list"""
-    return np.array([-mu_v,-v_hat,0.,3*v_hat,mu_v])
+# model functions
+def check(inequality,parameters):
+    #TODO: fix scope
+    """
+    Evaluate an inequality and raise an exception if it evaluates to False
 
-@np.vectorize
-def _omega(mu_v,omega_hat,v_hat):
-    """equilibrium obfuscation"""
-    return [
-            lambda v : omega_hat, 
-            lambda v : (1./(3.*v_hat))*(v-mu_v)*omega_hat,
-            lambda v : (1./v_hat)*(v-mu_v)*omega_hat,
-            lambda v : omega_hat
-        ]
-    return np.piecewise()
+    Parameters
+    ----------
+    inequality : str
+        String representation of a python logical statement. 
+    parameters : dict
+        Dictionary of variables
+
+    Examples
+    --------
+    >>> x = 1, y = 2
+    >>> check('x>y')
     
-@np.vectorize
-def _pi_R(mu_v,K0,v_hat):
-    """equilibrium reporting probability"""
-    return [
-            lambda v : K0*((v-mu_v)**2.-v_hat**2.),
-            lambda v : (8./9.)*K0*(v-mu_v)**2.,
-            lambda v : 0.,
-            lambda v : K0*((v-mu_v)**2.-v_hat**2.)
-        ]
-    return np.piecewise()
+    will raise the exception.
+    """
+    try:
+        _eval = eval(inequality,parameters)
+    except NameError:
+        print(inequality + ' contains an undefined parameter.')
+    if not _eval:
+        raise Exception(inequality + ' does not hold. Fix your parameters.')
 
-@np.vectorize
-def _sigma_J(alpha):
-    """Equilibrium report (conditional on reporting)"""
-    return v+(1.-alpha)*_omega(v)
+class _plot_attr:
+
+    def __init__(self,ylab,ytick,yticklab):
+
+        # plotting attributes
+        self.ylab = ylab
+        self.ytick = ytick
+        self.yticklab = yticklab
 
 # ------------------------------------------------------------------------------
 # equilibrium 
 class Equilibrium:
 
-    def __init__(self,alpha,kappa,chi,omega_bar,c_bar,v_bar):
+    def __init__(self,alpha,kappa,chi,b_bar,c_bar,v_bar):
         """
         Parameters
         ----------
         alpha : float
+            The journalist's skill
         kappa : float
+            Convexity of the trading cost
         chi : float
-        omega_bar : float
+            Mass of readers
+        b_bar : float
             Highest permissible level of obfuscation
         c_bar : float
             Highest opportunity cost for the journalist
         v_bar : float
-            
+            Length of the support of firm value 
         """
 
         # organic
-        self.alpha      = alpha
-        self.kappa      = kappa
-        self.chi        = chi
-        self.omega_bar  = omega_bar
-        self.c_bar      = c_bar
-        self.v_bar      = v_bar
+        self.alpha  = alpha
+        self.kappa  = kappa
+        self.chi    = chi
+        self.b_bar  = b_bar
+        self.c_bar  = c_bar
+        self.v_bar  = v_bar
 
         # synthetic
-        self.mu_v       = v_bar/2. 
-        self.v_hat      = (1.-alpha)*omega_bar
-        self.K0         = (1.+2.*chi)/(2.*kappa*c_bar*(1.+chi)**2.)
+        self.mu_v   = v_bar/2. 
+        self.v_hat  = (1.-alpha)*b_bar
+        self.K0     = (1.+2.*chi)/(2.*kappa*c_bar*(1.+chi)**2.)
+        b_bar_max   = self.mu_v/(3.*(1.-alpha))
+        c_bar_min   = 16.*(1.+2.*chi)*self.mu_v**2./(9.*kappa*(1.+chi)**2.)
         
-        ylabs = [
-                    r'obfuscation $\omega^{*}$',
-                    r'reporting probability $\pi_{R}^{*}$',
-                    r'report $s_{J}^{*}$'
-                ]
-        yticks = [
-                    omega_bar,
-                    1.,
-                    v_bar+(1.-alpha)*omega_bar]
-        yticklabels = [
-                    r'$\overline{\omega}$',
-                    r'$1$',
-                    r'$\overline{v}+(1-\alpha)\overline{\omega}$',
-                ]
+        bias_plot = _plot_attr(r'bias $\b^{*}$',b_bar,r'$\overline{\b}$')
+        prob_plot = _plot_attr(r'reporting probability $\pi_{R}^{*}$',1.,r'$1$')
+        rprt_plot = _plot_attr(
+                r'report $s_{J}^{*}$',
+                v_bar+(1.-alpha)*b_bar,
+                r'$\overline{v}+(1-\alpha)\overline{\b}$')
 
         # parameter checks
-        omega_bar_max = self.mu_v/(3.*(1.-alpha))
-        if omega_bar > omega_bar_max:
-            print('Highest permissible level of obfuscation too high')
-            raise AttributeError
+        if alpha > 1. or alpha < 0.:
+            raise Exception('alpha > 1. or alpha < 0.')
 
-        c_bar_min = 16.*(1.+2.*chi)*self.mu_v**2./(9.*kappa*(1.+chi)**2.)
+        if kappa < 0.:
+            raise Exception('kappa < 0.')
+
+        if chi < 0.:
+            raise Exception('chi < 0.')
+
+        if b_bar > b_bar_max:
+            raise Exception('b_bar > b_bar_max')
+
         if c_bar < c_bar_min:
-            print('Highest opportunity cost for the journalist too low')
-            raise AttributeError
+            raise Exception('c_bar < c_bar_min')
 
-    @np.vectorize
-    def omega(var_dict):
-        """(wrapper for) equilibrium obfuscation"""
-        return _omega(var_dict)
-        
-    @np.vectorize
-    def pi_R(var_dict):
-        """(wrapper for) equilibrium reporting probability"""
-        return _pi_R(var_dict)
-        
-    @np.vectorize
-    def sigma_J(var_dict):
-        """(wrapper for) equilibrium report (conditional on reporting)"""
-        return _sigma_J(var_dict)
-        
+        # check parameter inequalities
+        # for inequality in inequalities:
+            # check(inequality)
+
+        @np.vectorize
+        def _part(v):
+            """Partition: returns Boolean list"""
+            return np.array([-mu_v,-v_hat,0.,3*v_hat,mu_v])
+
+        # equilibrium bias
+        self._b():
+                [
+                    lambda v : b_hat, 
+                    lambda v : (1./(3.*v_hat))*(v-mu_v)*b_hat,
+                    lambda v : (1./v_hat)*(v-mu_v)*b_hat,
+                    lambda v : b_hat
+                ]
+            
+        # equilibrium reporting probability
+        @np.vectorize
+        self._pi_R:
+             [
+                    lambda v : K0*((v-mu_v)**2.-v_hat**2.),
+                    lambda v : (8./9.)*K0*(v-mu_v)**2.,
+                    lambda v : 0.,
+                    lambda v : K0*((v-mu_v)**2.-v_hat**2.)
+                ]
+
+        @np.vectorize
+        def _sigma_J(alpha):
+            """Equilibrium report (conditional on reporting)"""
+            return v+(1.-alpha)*_b(v)
+
     def plot(self,n_plot=100,f_name='figure4.pdf',figh=11.,figw=8.5):
         """
         Plot the equilibrium quantities
@@ -134,7 +157,7 @@ class Equilibrium:
         """
         
         # parameters
-        v_plot = np.linspace(0.,v_bar,n_plot)
+        v_plot = np.linspace(0.,self.v_bar,n_plot)
 
         # figures
         fig, axs = plt.subplots(nrows=3)
@@ -143,9 +166,8 @@ class Equilibrium:
         fig.set_tight_layout(True)
 
         # common axis attributes
-        F = [_omega, _pi_R, _sigma_J] 
-        #for j in [0,1,2]:
-        for ax in axs:
+        F = [_b, _pi_R, _sigma_J] 
+        for j in [0,1,2]:
 
             # plot
             axs[j].plot(v_plot,F[j](v_plot),**plt_opts)
