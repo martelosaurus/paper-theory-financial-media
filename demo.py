@@ -1,3 +1,4 @@
+
 from journalism import Equilibrium
 
 e = Equilibrium(
