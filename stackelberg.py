@@ -2,8 +2,8 @@ class Stackelberg:
     """
 	class for Stackelberg model
 
-	Notes
-	-----
+	Model Description
+	-----------------
 	There are two dates, t=1,2, and two firms, j=1,2. On date 1, firm 1 produces 	q1 at marginal cost c>0. On date 2, firm 2 observes q1, and produces q2 at 
 	marginal cost c>0. Firms sell their quantities at the market price 
 	P(q1,q2) = a-q1-q2, where a>0 is the choke price. 
@@ -39,10 +39,10 @@ class Stackelberg:
             raise Exception('c<0')
 
         # ---------------------------------------------------------------------
-        # parameters
-        self.model_parameters = []
+        # x objects
+        self.xobj = []
 
-        firm_value  = ParVar(
+        q1 = ParVar(
             r'$0$',
             r'$\mu_{v}-\widehat{v}$',
             r'$\mu_{v}$',
@@ -50,37 +50,53 @@ class Stackelberg:
             r'$\overline{v}$'
         )
 
-        firm_bias   = ParVar(
+        a = ParVar(
             r'$0$',
             r'$\\sup_{\\Delta_{R}}^{-1}(\\overline{c})$',
             r'$\\sup_{\\Delta_{R}}^{-1}(0)$'
         )
 
+		b = ParVar(
+			'hello',
+		)
+
         # ---------------------------------------------------------------------
-        # objects
-        self.model_objects = []
+        # auxiliary functions
+		@np.vectorize
+		def _P(q1,q2,a):
+			"""market price"""
+			return a-q1-q2
+
+		@np.vectorize
+		def _pi1(q1,q2,a,c):
+			"""firm 1's profit"""
+			return (P(q1,q2,a)-c)*q1
+
+		@np.vectorize
+		def _pi2(q1,q2,a,c):
+			"""firm 2's profit"""
+			return (P(q1,q2,a)-c)*q2
+
+        # ---------------------------------------------------------------------
+        # y objects
+        self.yobj = []
+
+		@np.vectorize
+		def _q2(q1,a,c):
+			"""firm 2's response to firm 1's"""
+			return ((a-c)-q1)/2.
 
 		@np.vectorize
 		def _q1_star(a,c):
 			"""firm 1's equilibrium quantity"""
+			return (a-c)/2.
 
-		
+		@np.vectorize
+		def _q2_star(a,c):
+			"""firm 2's equilibrium quantity"""
+			return (a-c)/4.
 
-        # ---------------------------------------------------------------------
-        # equilibrium reporting probability
-        @np.vectorize
-        def _pi_R(b):
-            """equilibrium reporting probability"""
-            coef1 = (1.+2.*chi)/(2.*kappa*(1.+chi)**2.)
-            Delta_R = coef1*((v-mu_v)**2.-((1.-alpha)*b)**2.
-            if Delta_R < 0.:
-                return 0.
-            elif Delta_R < c_bar:
-                return Delta_R/c_bar
-            else:
-                return 1.
-
-        self.model_objects.append(Object(
+        self.yobj(Object(
             name = 'equilibrium reporting probability',
             func = _pi_R,
             ylab = r'reporting probability $\pi_{R}^{*}$',
@@ -88,46 +104,3 @@ class Stackelberg:
             r'$1$'
             ))
 
-        # ---------------------------------------------------------------------
-        # equilibrium bias
-        @np.vectorize
-        def _b(v):
-            """equilibrium bias"""
-            if v < -v_hat:
-                return b_hat
-            elif v < 0.:
-                return (1./(3.*v_hat))*(v-mu_v)*b_hat
-            elif v < 3*v_hat:
-                return (1./v_hat)*(v-mu_v)*b_hat
-            else: 
-                return b_hat
-
-        self.model_objects.append(Object(
-            name = 'equilibrium bias',
-            func = _b,
-            ylab = r'bias $\b^{*}$',
-            b_bar,
-            r'$\overline{\b}$'
-            ))
-
-        # ---------------------------------------------------------------------
-        # equilibrium reporting probability
-        @np.vectorize
-        def _pi_R(v):
-            """equilibrium reporting probability"""
-            if v < -v_hat:
-                return K0*((v-mu_v)**2.-v_hat**2.)
-            elif v < 0.:
-                return (8./9.)*K0*(v-mu_v)**2.
-            elif v < 3*v_hat:
-                return 0.
-            else: 
-                return K0*((v-mu_v)**2.-v_hat**2.)
-
-        self.model_objects.append(Object(
-            name = 'equilibrium reporting probability',
-            func = _pi_R,
-            ylab = r'reporting probability $\pi_{R}^{*}$',
-            1.,
-            r'$1$'
-            ))
