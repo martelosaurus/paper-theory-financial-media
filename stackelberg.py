@@ -1,60 +1,42 @@
-"""Journalism Equilibrium"""
-class JournalismEquilibrium:
-    """Equilibrium class for journalism model"""
+class Stackelberg:
+    """
+	class for Stackelberg model
 
-    def __init__(self,alpha,kappa,chi,b_bar,c_bar,v_bar):
+	Notes
+	-----
+	There are two dates, t=1,2, and two firms, j=1,2. On date 1, firm 1 produces 	q1 at marginal cost c>0. On date 2, firm 2 observes q1, and produces q2 at 
+	marginal cost c>0. Firms sell their quantities at the market price 
+	P(q1,q2) = a-q1-q2, where a>0 is the choke price. 
+	"""
+
+    def __init__(self,a,c):
         """
         Parameters
         ----------
-        alpha : float
-            The journalist's skill
-        kappa : float
-            Convexity of the trading cost
-        chi : float
-            Mass of readers
-        b_bar : float
-            Highest permissible level of obfuscation
-        c_bar : float
-            Highest opportunity cost for the journalist
-        v_bar : float
-            Length of the support of firm values
+        a : float
+            Choke price
+        c : float
+            Marginal cost
         """
 
         # ---------------------------------------------------------------------
         # parameters
 
         # organic parameters
-        self.alpha  = alpha
-        self.kappa  = kappa
-        self.chi    = chi
-        self.b_bar  = b_bar
-        self.c_bar  = c_bar
-        self.v_bar  = v_bar
+        self.a = a
+        self.c = c
 
         # synthetic parameters
         self.mu_v   = v_bar/2. 
-        self.v_hat  = (1.-alpha)*b_bar
-        self.K0     = (1.+2.*chi)/(2.*kappa*c_bar*(1.+chi)**2.)
-        b_bar_max   = self.mu_v/(3.*(1.-alpha))
-        c_bar_min   = 16.*(1.+2.*chi)*self.mu_v**2./(9.*kappa*(1.+chi)**2.)
         
         # ---------------------------------------------------------------------
         # parameter checks
 
-        if alpha > 1. or alpha < 0.:
-            raise Exception('alpha > 1. or alpha < 0.')
+        if a < 0.:
+            raise Exception('a<0')
 
-        if kappa < 0.:
-            raise Exception('kappa < 0.')
-
-        if chi < 0.:
-            raise Exception('chi < 0.')
-
-        if b_bar > b_bar_max:
-            raise Exception('b_bar > b_bar_max')
-
-        if c_bar < c_bar_min:
-            raise Exception('c_bar < c_bar_min')
+        if c < 0.:
+            raise Exception('c<0')
 
         # ---------------------------------------------------------------------
         # parameters
@@ -78,8 +60,14 @@ class JournalismEquilibrium:
         # objects
         self.model_objects = []
 
+		@np.vectorize
+		def _q1_star(a,c):
+			"""firm 1's equilibrium quantity"""
+
+		
+
         # ---------------------------------------------------------------------
-        # equilibrium reporting probability"""
+        # equilibrium reporting probability
         @np.vectorize
         def _pi_R(b):
             """equilibrium reporting probability"""
@@ -142,19 +130,4 @@ class JournalismEquilibrium:
             ylab = r'reporting probability $\pi_{R}^{*}$',
             1.,
             r'$1$'
-            ))
-
-        # ---------------------------------------------------------------------
-        # equilibrium report
-        @np.vectorize
-        def _sigma_J(v):
-            """equilibrium report"""
-            return v+(1.-alpha)*_b(v)
-
-        self.model_objects.append(Object(
-            name = 'equilibrium report',
-            func = _sigma_J,
-            ylab = r'report $s_{J}^{*}$',
-            v_bar+(1.-alpha)*b_bar,
-            r'$\overline{v}+(1-\alpha)\overline{\b}$'
             ))
