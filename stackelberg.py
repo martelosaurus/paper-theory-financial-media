@@ -4,7 +4,8 @@ class Stackelberg:
 
 	Model Description
 	-----------------
-	There are two dates, t=1,2, and two firms, j=1,2. On date 1, firm 1 produces 	q1 at marginal cost c>0. On date 2, firm 2 observes q1, and produces q2 at 
+	There are two dates, t=1,2, and two firms, j=1,2. On date 1, firm 1 produces 	
+        q1 at marginal cost c>0. On date 2, firm 2 observes q1, and produces q2 at 
 	marginal cost c>0. Firms sell their quantities at the market price 
 	P(q1,q2) = a-q1-q2, where a>0 is the choke price. 
 	"""
