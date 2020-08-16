@@ -1,12 +1,45 @@
 from journalism import *
 
-e = Equilibrium(
-	alpha = 1./2.,
-	kappa = 2./3.,
-	chi   = 1./2.,
-	b_bar = 4./3.,
-	c_bar = 10.,
-	v_bar = 4.
-)
+E1 = Equilibrium()
+E2 = Equilibrium(pharphi = 1.)
 
-plot(e.v,[e.b])
+#-------------------------------------------------------------------------------
+# policy functions
+
+plot(E1.delta,[E1.pi.of(delta)])
+plot(E1.beta,[E1.pi.of(beta)])
+
+#-------------------------------------------------------------------------------
+# equilibrium
+
+# journalist's reporting probability 
+plot(E1.delta,[E1.pi.of(E1.delta),E1.delta])
+
+# manager's bias
+plot(E1.delta,[E1.beta.of(E1.delta)])
+
+# manager's report (and straight-shooter)
+plot(E1.delta,[E1.s_F.of(E1.delta),E1.delta])
+
+# journalist's report (and straight-shooter)
+plot(E1.delta,[E1.s_J.of(E1.delta),E1.delta])
+
+#-------------------------------------------------------------------------------
+# equilibrium with loss aversion
+
+# journalist's reporting probability
+plot(E2.delta,[E2.pi.of(E2.delta)])
+
+#-------------------------------------------------------------------------------
+# empirical implications
+
+# probability of reporting and bias
+plot(E1.beta.of(delta),[E1.pi.of(delta),E1.pi.of(delta,beta)])
+
+# drift
+plot(E1.pi.of(E1.delta),[E1.Omega.of(E1.delta)])
+plot(E1.beta.of(E1.delta),[E1.Omega.of(E1.delta)])
+
+# price quality
+plot(E1.pi.of(E1.delta),[E1.Lambda.of(E1.delta)])
+plot(E1.beta.of(E1.delta),[E1.Lambda.of(E1.delta)])
