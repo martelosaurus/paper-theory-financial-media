@@ -1,4 +1,6 @@
+# TODO: support multivariate Variables
 import numpy as np
+from matplotlib import pyplot as plt
 from copy import deepcopy
 
 # ==============================================================================
@@ -24,6 +26,11 @@ class Variable:
 		tick : dict<<<???>>>
 			x ticks
 		"""		
+		self.name = name
+		self.symb = symb
+		self.vran = vran
+		self.func = func
+		self.tick = tick
 
 	def of(self,var):
 		"""
@@ -32,14 +39,16 @@ class Variable:
 		var : Variable
 			Variable of which to evaluate 
 		"""
-		return 1. 
+		_self = deepcopy(self)
+		return _self 
 
 def plot(x,Y,
-	linespecs=['-'],
-	colors=['k'],
-	linewidths=[1],
+	linestyles=['-','--'],
+	colors=['k','k'],
+	linewidths=[1,1],
 	xticks=None,
-	yticks=None
+	yticks=None,
+	n_plt=100
 ):
 	"""
 	For each y in Y, plots y against x
@@ -50,27 +59,51 @@ def plot(x,Y,
 			Variables to plot
 	xticks, yticks :
 		Allow user to override the ticks
+	linestyles : (list of) str
+		Linestyles (see plt.plot)
+	colors : (list of) str
+		Colors (see plt.plot)
+	linewidths : (list of) float
+		Linewidths (see plt.plot)
+	n_plt : int
+		Number of knots at which to plot the variables
 
 	Notes
 	-----
 	Default behavior is to cycle through linespecs and colors
 	"""		
-	if not len(linespecs) is len(colors) is len(linewidths) is len(Y):
-		raise Exception('PC load letter')
+	# TODO: collect these properties into a dict
+	if False:
+		if not len(linespecs) is len(colors) is len(linewidths) is len(Y):
+			raise Exception('PC load letter')
+
+	# create x-vector
+	x_plt = np.linspace(x.vran[0],x.vran[1],n_plt)
 
 	# plot 
 	for y in Y:
-		plt.plot(x._plt,y._plt)	
+		y_plt = np.linspace(y.vran[0],y.vran[1],n_plt)
+		c = colors.pop()
+		lw = linewidths.pop()
+		ls = linestyles.pop()
+		plt.plot(x_plt,y_plt,
+			color		=	c,
+			linewidth	=	lw,
+			linestyle 	=	ls
+		)	
 
 	# x-axis
-	plt.xlabel(x.name)
+	plt.xlabel(x.name + ' ' + x.symb)
 	plt.xticks(**x.tick)
 	plt.xlim(x.vran)
 
+	# ylabel (or legend)
 	if len(Y) > 1:
-		plt.legend([y.name for y in Y])
+		plt.legend([y.name + " " + y.symb for y in Y])
 	else:
-		plt.ylabel(Y[0].name)
+		plt.ylabel(Y[0].name + " " + Y[0].symb)
+		plt.yticks(**Y[0].tick)
+		plt.ylim(Y[0].vran)
 
 	# misc
 	plt.grid()	
@@ -78,7 +111,8 @@ def plot(x,Y,
 	# save
 	fname_x = x.name.replace(' ','_')
 	fname_y = '_'.join([y.name.replace(' ','_') for y in Y])
-	plt.savefig('Model_Figures/'fname_x + '_' + fname_y + '.pdf')
+	plt.savefig('Model_Figures/' + fname_x + '_' + fname_y + '.pdf')
+	plt.close()
 
 # ==============================================================================
 # EQUILIBRIUM
@@ -192,59 +226,68 @@ class Equilibrium:
 
 		# ----------------------------------------------------------------------
 		# news
-		delta = Variable(
+		self.delta = Variable(
 			name = 'news',
 			symb = r'$\delta$',
 			vran = (0.,1.),
 			func = lambda x: x,
 			tick = {
 				'ticks' : [-self.mu_d,self.mu_d], 
-				'labels' : ['$-\\mu_{d}$','$+\\mu_{d}$']
+				'labels' : [r'$-\mu_{d}$',r'$+\mu_{d}$']
 			}
 		)
 
 		# ----------------------------------------------------------------------
 		# bias
-		b = Variable(
+		self.beta = Variable(
 			name = 'bias',
-			symb = r'$\b$',
+			symb = r'$b$',
 			vran = (0.,1.),
 			func = lambda x : x,
 			tick = {
 				'ticks' : [0.,self.b_bar], 
-				'labels' : ['$0$','$\\overline{b}$']
+				'labels' : [r'$0$',r'$\\overline{b}$']
 			}
 		)
 
 		# ----------------------------------------------------------------------
 		# <<<EQUILIBRIUM>>> bias
-		b_eq = deepcopy(b)
+		self.beta_eq = deepcopy(self.beta)
 
-		b_eq.name = 'equilibrium bias'
-		b_eq.symb = r'$\\beta(\\delta)$'
-		b_eq.func = np.vectorize(_b)
+		self.beta_eq.name = 'equilibrium bias'
+		self.beta_eq.symb = r'$\beta(\delta)$'
 
 		# ----------------------------------------------------------------------
 		# reporting probability
-		pi = Variable(
+		self.pi = Variable(
 			name = 'reporting probability',
 			symb = r'$\pi_{R}^{*}$',
 			vran = (0.,1.),
 			func = _pi_R,
-			tick = {'ticks' : [0.,1.], 'labels' : ['$0$','$1$']}
+			tick = {'ticks' : [0.,1.], 'labels' : [r'$0$',r'$1$']}
 		)
 
 		# ----------------------------------------------------------------------
 		# <<<EQUILIBRIUM>>> reporting probability
-		pi_eq = deepcopy(pi)
+		self.pi_eq = deepcopy(self.pi)
 
-		pi_eq.func = lambda delta: _pi(delta,_beta(delta))
-		pi_eq.name = 'equilibrium reporting probability'
-		pi_eq.symb = r'$\pi_{R}^{*}(v)$'
+		self.pi_eq.func = lambda delta: _pi(delta,_beta(delta))
+		self.pi_eq.name = 'equilibrium reporting probability'
+		self.pi_eq.symb = r'$\pi_{R}^{*}(v)$'
+
+		# ----------------------------------------------------------------------
+		# <<<EQUILIBRIUM>>> manager's report
+		self.s_F = Variable(
+			name = 'manager''s report',
+			symb = r'$s_{F}^{*}$',
+			vran = (0.,1.),
+			func = lambda delta: _s_F(delta,_beta(delta)),
+			tick = {'ticks' : None, 'labels' : None}
+		)
 
 		# ----------------------------------------------------------------------
 		# <<<EQUILIBRIUM>>> journalist's report
-		s_J = Variable(
+		self.s_J = Variable(
 			name = 'journalist report',
 			symb = r'$s_{J}^{*}$',
 			vran = (0.,1.),
@@ -254,20 +297,20 @@ class Equilibrium:
 
 		# ----------------------------------------------------------------------
 		# <<<EQUILIBRIUM>>> price quality
-		Lambda = Variable(
+		self.Lambda = Variable(
 			name = 'price quality',
-			symb = r'$\\Lambda$',
-			vran = None,
+			symb = r'$\Lambda$',
+			vran = (0.,1.),
 			func = lambda delta: _Lambda(delta,_beta(delta)),
 			tick = {'ticks' : None, 'labels' : None} 
 		)
 
 		# ----------------------------------------------------------------------
 		# <<<EQUILIBRIUM>>> drift
-		Omega = Variable(
+		self.Omega = Variable(
 			name = 'drift',
-			symb = r'$\\Omega$',
-			vran = None,
+			symb = r'$\Omega$',
+			vran = (0.,1.),
 			func = lambda delta: _Omega(delta,_beta(delta)),
 			tick = {'ticks' : None, 'labels' : None }
 		)
