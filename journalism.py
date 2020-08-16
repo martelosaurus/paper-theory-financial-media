@@ -103,13 +103,13 @@ class Equilibrium:
         self.b_bar  = b_bar
         self.c_bar  = c_bar
         self.v_bar  = v_bar
-		self.varphi = varphi
+        self.varphi = varphi
 
         # synthetic parameters
         self.mu_v   = v_bar/2. 
         self.v_hat  = (1.-alpha)*b_bar
         self.K0     = (1.+2.*chi)/(2.*kappa*(1.+chi)**2.)
-		self.rho 	= chi/(1.+chi)
+        self.rho 	= chi/(1.+chi)
         b_bar_max   = self.mu_v/(3.*(1.-alpha))
         c_bar_min   = 16.*(1.+2.*chi)*self.mu_v**2./(9.*kappa*(1.+chi)**2.)
         
@@ -127,42 +127,42 @@ class Equilibrium:
 
 	@np.vectorize
 	def _beta(delta):
-		"""<<<EQUILIBRIUM>>> bias"""
-		if v < -v_hat:
-			return b_hat
-		elif v < 0.:
-			return (1./(3.*v_hat))*delta*b_hat
-		elif v < 3*v_hat:
-			return (1./v_hat)*delta*b_hat
-		else: 
-			return b_hat
+            """<<<EQUILIBRIUM>>> bias"""
+            if v < -v_hat:
+                return b_hat
+            elif v < 0.:
+                return (1./(3.*v_hat))*delta*b_hat
+            elif v < 3*v_hat:
+                return (1./v_hat)*delta*b_hat
+            else: 
+                return b_hat
 
 	@np.vectorize
 	def _sigma_J(delta,beta):
-		"""journalist's report"""
-		return delta+beta
+            """journalist's report"""
+            return delta+beta
 
 	@np.vectorize
 	def _pi_R(delta,beta):
-		"""reporting probability (with loss aversion)"""
-		Delta_R = K*(delta**2.-beta**2.)-varphi*(delta>0)*delta**2.
-		if Delta_R < 0.:
-			return 0.
-		elif Delta_R < c_bar:
-			return Delta_R/c_bar
-		else:
-			return 1.
+            """reporting probability (with loss aversion)"""
+            Delta_R = K*(delta**2.-beta**2.)-varphi*(delta>0)*delta**2.
+            if Delta_R < 0.:
+                return 0.
+            elif Delta_R < c_bar:
+                return Delta_R/c_bar
+            else:
+                return 1.
 
 	@np.vectorize
 	def _Lambda(delta,beta):
-		"""price quality"""
-		var = lambda x: (kappa*(1.-rho)*sigma_u)**2.+(rho*x)**2.
-		return -(_pi_R(delta,beta)*var(beta)+(1.-_pi_R(delta,beta))*var(delta))
+            """price quality"""
+            var = lambda x: (kappa*(1.-rho)*sigma_u)**2.+(rho*x)**2.
+            return -(_pi_R(delta,beta)*var(beta)+(1.-_pi_R(delta,beta))*var(delta))
 
 	@np.vectorize
 	def _Omega(delta,beta):
-		"""drift"""
-		return _pi_R(delta,beta)*(rho*beta)+(1.-_pi_R(delta,beta))*(-rho*delta)
+            """drift"""
+            return _pi_R(delta,beta)*(rho*beta)+(1.-_pi_R(delta,beta))*(-rho*delta)
 
 	# ==========================================================================
 	# VARIABLES
@@ -170,79 +170,79 @@ class Equilibrium:
 	# --------------------------------------------------------------------------
 	# news
 	delta = Variable(
-		func = lambda x: x,
-		tick = {
-			'ticks' : [-mu_d,mu_d], 
-			'labels' : ['$-\\mu_{d}$','$+\\mu_{d}$']
-		}, 
-		name = 'news',
-		symb = r'$\delta$'
+            func = lambda x: x,
+            tick = {
+                'ticks' : [-mu_d,mu_d], 
+                'labels' : ['$-\\mu_{d}$','$+\\mu_{d}$']
+            }, 
+            name = 'news',
+            symb = r'$\delta$'
 	)
 
 	# --------------------------------------------------------------------------
 	# bias
 	b = Variable(
-		func = lambda x : x,
-		tick = {
-			'ticks' : [0.,b_bar], 
-			'labels' : ['$0$','$\\overline{b}$']
-		}, 
-		name = 'bias',
-		symb = r'$\b$'
+            func = lambda x : x,
+            tick = {
+                'ticks' : [0.,b_bar], 
+                'labels' : ['$0$','$\\overline{b}$']
+            }, 
+            name = 'bias',
+            symb = r'$\b$'
 	)
 
 	# --------------------------------------------------------------------------
 	# <<<EQUILIBRIUM>>> bias
 	b_eq = deepcopy(b)
 
-	b_eq.func = np.vectorize(_b),
-	b_eq.name = 'equilibrium bias',
+	b_eq.func = np.vectorize(_b)
+	b_eq.name = 'equilibrium bias'
 	b_eq.symb = r'$\\beta(\\delta)$'
 	
 	# --------------------------------------------------------------------------
 	# reporting probability
 	pi = Variable(
-		func = _pi_R,
-		tick = {'ticks' :, 'labels' : }, 
-		vran = (0.,1.),
-		name = 'reporting probability',
-		symb = r'$\pi_{R}^{*}$',
+            func = _pi_R,
+            tick = {'ticks' : [0.,1.], 'labels' : ['$0$','$1$']}, 
+            vran = (0.,1.),
+            name = 'reporting probability',
+            symb = r'$\pi_{R}^{*}$'
 	)
 
 	# --------------------------------------------------------------------------
 	# <<<EQUILIBRIUM>>> reporting probability
 	pi_eq = deepcopy(pi)
 	
-	pi_eq.func = lambda delta, beta: _pi(delta,_beta(delta))
-	pi_eq.name = 'equilibrium reporting probability',
-	pi_eq.symb = r'$\pi_{R}^{*}(v)$',
+	pi_eq.func = lambda delta: _pi(delta,_beta(delta))
+	pi_eq.name = 'equilibrium reporting probability'
+	pi_eq.symb = r'$\pi_{R}^{*}(v)$'
 	
 	# --------------------------------------------------------------------------
-	# journalist's report
+	# <<<EQUILIBRIUM>>> journalist's report
 	s_J = Variable(
-		func = _sigma_J,
-		tick = {'ticks' :, 'labels' : }, 
-		vran = (0.,1.),
-		name = 'journalist report',
-		symb = r'$s_{J}^{*}$'
+            func = lambda delta: _s_J(delta,_beta(delta)),
+            tick = {'ticks' :, 'labels' : }, 
+            vran = (0.,1.),
+            name = 'journalist report',
+            symb = r'$s_{J}^{*}$'
 	)
 
 	# --------------------------------------------------------------------------
-	# price quality
+	# <<<EQUILIBRIUM>>> price quality
 	Lambda = Variable(
-		func = _Lambda,
-		tick = {'ticks' :, 'labels' : }, 
-		vran = None,
-		name = 'price quality',
-		symb = r'$\\Lambda$'
+            func = lambda delta: _Lambda(delta,_beta(delta)),
+            tick = {'ticks' :, 'labels' : }, 
+            vran = None,
+            name = 'price quality',
+            symb = r'$\\Lambda$'
 	)
 
 	# --------------------------------------------------------------------------
-	# drift
+	# <<<EQUILIBRIUM>>> drift
 	Omega = Variable(
-		func = _Omega,
-		tick = {'ticks' :, 'labels' : }, 
-		vran = None,
-		name = 'drift',
-		symb = r'$\\Omega$'
+            func = lambda delta: _Omega(delta,_beta(delta)),
+            tick = {'ticks' :, 'labels' : }, 
+            vran = None,
+            name = 'drift',
+            symb = r'$\\Omega$'
 	)
