@@ -6,22 +6,22 @@ E2 = Equilibrium(varphi = 1.)
 #-------------------------------------------------------------------------------
 # policy functions
 
+print('flag1')
 plot(E1.delta,[E1.pi.of(E1.delta)])
+print('flag2')
 plot(E1.beta,[E1.pi.of(E1.beta)])
 
 #-------------------------------------------------------------------------------
-# equilibrium
-
-# journalist's reporting probability 
-plot(E1.delta,[E1.pi.of(E1.delta),E1.delta])
-
 # manager's bias
+print('flag3')
 plot(E1.delta,[E1.beta.of(E1.delta)])
 
 # manager's report (and straight-shooter)
+print('flag4')
 plot(E1.delta,[E1.s_F.of(E1.delta),E1.delta])
 
 # journalist's report (and straight-shooter)
+print('flag5')
 plot(E1.delta,[E1.s_J.of(E1.delta),E1.delta])
 
 #-------------------------------------------------------------------------------

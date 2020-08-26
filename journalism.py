@@ -43,9 +43,9 @@ class Variable:
 		return _self 
 
 def plot(x,Y,
-	linestyles=['-','--'],
-	colors=['k','k'],
-	linewidths=[1,1],
+	_linestyles=['-','--'],
+	_linewidths=[1,1],
+	_colors=['k','k'],
 	xticks=None,
 	yticks=None,
 	n_plt=100
@@ -72,10 +72,12 @@ def plot(x,Y,
 	-----
 	Default behavior is to cycle through linespecs and colors
 	"""		
+
+	linestyles = _linestyles.copy()
+	linewidths = _linewidths.copy()
+	colors = _colors.copy()
+
 	# TODO: collect these properties into a dict
-	if False:
-		if not len(linespecs) is len(colors) is len(linewidths) is len(Y):
-			raise Exception('PC load letter')
 
 	# create x-vector
 	x_plt = np.linspace(x.vran[0],x.vran[1],n_plt)
