@@ -1,14 +1,28 @@
 \documentclass{article}
 \usepackage{graphicx,fullpage}
 \begin{document}
+
 \begin{tabular}{cc}
-	\includegraphics[scale=.5]{bias_drift} & \includegraphics[scale=.5]{bias_price_quality} \\
-	\includegraphics[scale=.5]{bias_reporting_probability} & \includegraphics[scale=.5]{bias_reporting_probability_reporting_probability} \\
-	\includegraphics[scale=.5]{news_bias} & \includegraphics[scale=.5]{news_journalist_report_news} \\
+	\includegraphics[scale=.5]{effective_bias_reporting_probability} & \includegraphics[scale=.5]{effective_bias_reporting_probability_reporting_probability} \\
+	\includegraphics[scale=.5]{news_effective_bias} & \includegraphics[scale=.5]{news_reporting_probability} \\
+	\includegraphics[scale=.5]{news_reporting_probability_reporting_probability} & 
 \end{tabular}
+
 \pagebreak
+\begin{center}
+	\textbf{Reports}
+\end{center}
 \begin{tabular}{cc}
-	\includegraphics[scale=.5]{news_managers_report_news} & \includegraphics[scale=.5]{news_reporting_probability} \\
+	\includegraphics[scale=.5]{news_managers_report_news} & \includegraphics[scale=.5]{news_journalist_report_news} 
+\end{tabular}
+
+\pagebreak
+\begin{center}
+	\textbf{Market Outcomes}
+\end{center}
+\begin{tabular}{cc}
+	\includegraphics[scale=.5]{effective_bias_drift} & \includegraphics[scale=.5]{effective_bias_price_quality} \\
 	\includegraphics[scale=.5]{reporting_probability_drift} & \includegraphics[scale=.5]{reporting_probability_price_quality} 
 \end{tabular}
 \end{document}
+
