@@ -1,36 +1,37 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2020.6.6)  1 SEP 2020 20:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2020.3.22)  2 SEP 2020 10:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **filenames
 (./filenames.tex
-LaTeX2e <2018-12-01>
+LaTeX2e <2017/01/01> patch level 3
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
-\c@part=\count80
-\c@section=\count81
-\c@subsection=\count82
-\c@subsubsection=\count83
-\c@paragraph=\count84
-\c@subparagraph=\count85
-\c@figure=\count86
-\c@table=\count87
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2016/10/09 v1.0u Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
@@ -41,7 +42,15 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
@@ -50,7 +59,14 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip43
 )
-(./filenames.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count88
+\float@exts=\toks15
+\float@box=\box26
+\@float@everytoks=\toks16
+\@floatcapt=\box27
+) (./filenames.aux)
 \openout1 = `filenames.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
@@ -68,32 +84,42 @@ LaTeX Font Info:    ... okay on input line 3.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count88
+\scratchcounter=\count89
 \scratchdimen=\dimen105
-\scratchbox=\box27
-\nofMPsegments=\count89
-\nofMParguments=\count90
-\everyMPshowfont=\toks15
-\MPscratchCnt=\count91
+\scratchbox=\box28
+\nofMPsegments=\count90
+\nofMParguments=\count91
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count92
 \MPscratchDim=\dimen106
-\MPnumerator=\count92
-\makeMPintoPDFobject=\count93
-\everyMPtoPDFconversion=\toks16
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+\MPnumerator=\count93
+\makeMPintoPDFobject=\count94
+\everyMPtoPDFconversion=\toks18
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-)
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)))
+))
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 
@@ -102,27 +128,15 @@ Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-))))
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 38.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 
@@ -131,119 +145,113 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 5.
+(Font)              <7> on input line 11.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 5.
+(Font)              <5> on input line 11.
+
 <effective_bias_reporting_probability.pdf, id=1, 462.52798pt x 346.89601pt>
 File: effective_bias_reporting_probability.pdf Graphic file (type pdf)
+
 <use effective_bias_reporting_probability.pdf>
-Package pdftex.def Info: effective_bias_reporting_probability.pdf  used on inpu
-t line 6.
+Package pdftex.def Info: effective_bias_reporting_probability.pdf used on input
+ line 12.
 (pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<effective_bias_reporting_probability_reporting_probability.pdf, id=2, 462.5279
-8pt x 346.89601pt>
-File: effective_bias_reporting_probability_reporting_probability.pdf Graphic fi
-le (type pdf)
-<use effective_bias_reporting_probability_reporting_probability.pdf>
-Package pdftex.def Info: effective_bias_reporting_probability_reporting_probabi
-lity.pdf  used on input line 6.
-(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<news_effective_bias.pdf, id=3, 462.52798pt x 346.89601pt>
-File: news_effective_bias.pdf Graphic file (type pdf)
-<use news_effective_bias.pdf>
-Package pdftex.def Info: news_effective_bias.pdf  used on input line 7.
-(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<news_reporting_probability.pdf, id=4, 462.52798pt x 346.89601pt>
-File: news_reporting_probability.pdf Graphic file (type pdf)
-<use news_reporting_probability.pdf>
-Package pdftex.def Info: news_reporting_probability.pdf  used on input line 7.
-(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<news_reporting_probability_reporting_probability.pdf, id=5, 462.52798pt x 346.
-89601pt>
-File: news_reporting_probability_reporting_probability.pdf Graphic file (type p
-df)
-<use news_reporting_probability_reporting_probability.pdf>
-Package pdftex.def Info: news_reporting_probability_reporting_probability.pdf  
-used on input line 8.
+File: effective_bias_reporting_probability.pdf Graphic file (type pdf)
+
+<use effective_bias_reporting_probability.pdf>
+Package pdftex.def Info: effective_bias_reporting_probability.pdf used on input
+ line 12.
 (pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
 
-Overfull \hbox (31.7718pt too wide) in paragraph at lines 5--10
-[][] 
+Overfull \hbox (16.7718pt too wide) in paragraph at lines 11--14
+ [] 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./effective_bias_reporting
-_probability.pdf> <./effective_bias_reporting_probability_reporting_probability
-.pdf
+_probability.pdf>]
+<news_effective_bias.pdf, id=42, 462.52798pt x 346.89601pt>
+File: news_effective_bias.pdf Graphic file (type pdf)
 
-pdfTeX warning: pdflatex (file ./effective_bias_reporting_probability_reporting
-_probability.pdf): PDF inclusion: multiple pdfs with page group included in a s
-ingle page
-> <./news_effective_bias.pdf
+<use news_effective_bias.pdf>
+Package pdftex.def Info: news_effective_bias.pdf used on input line 24.
+(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
 
-pdfTeX warning: pdflatex (file ./news_effective_bias.pdf): PDF inclusion: multi
-ple pdfs with page group included in a single page
-> <./news_reporting_probability.pdf
+<news_reporting_probability.pdf, id=43, 462.52798pt x 346.89601pt>
+File: news_reporting_probability.pdf Graphic file (type pdf)
+
+<use news_reporting_probability.pdf>
+Package pdftex.def Info: news_reporting_probability.pdf used on input line 24.
+(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
+
+Overfull \hbox (16.7718pt too wide) in paragraph at lines 23--26
+ [] 
+ []
+
+[2 <./news_effective_bias.pdf> <./news_reporting_probability.pdf
 
 pdfTeX warning: pdflatex (file ./news_reporting_probability.pdf): PDF inclusion
 : multiple pdfs with page group included in a single page
-> <./news_reporting_probability_reporting_probability.pdf
+>] <news_news_managers_report.pdf, id=110, 462.52798pt x 346.89601pt>
+File: news_news_managers_report.pdf Graphic file (type pdf)
 
-pdfTeX warning: pdflatex (file ./news_reporting_probability_reporting_probabili
-ty.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-
->]
-<news_managers_report_news.pdf, id=176, 462.52798pt x 346.89601pt>
-File: news_managers_report_news.pdf Graphic file (type pdf)
-<use news_managers_report_news.pdf>
-Package pdftex.def Info: news_managers_report_news.pdf  used on input line 16.
-(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<news_journalist_report_news.pdf, id=177, 462.52798pt x 346.89601pt>
-File: news_journalist_report_news.pdf Graphic file (type pdf)
-<use news_journalist_report_news.pdf>
-Package pdftex.def Info: news_journalist_report_news.pdf  used on input line 16
-.
+<use news_news_managers_report.pdf>
+Package pdftex.def Info: news_news_managers_report.pdf used on input line 36.
 (pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
 
-Overfull \hbox (16.7718pt too wide) in paragraph at lines 15--18
-[] 
+<news_news_journalist_report.pdf, id=111, 462.52798pt x 346.89601pt>
+File: news_news_journalist_report.pdf Graphic file (type pdf)
+
+<use news_news_journalist_report.pdf>
+Package pdftex.def Info: news_news_journalist_report.pdf used on input line 36.
+
+(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
+
+Overfull \hbox (16.7718pt too wide) in paragraph at lines 35--38
+ [] 
  []
 
-[2 <./news_managers_report_news.pdf> <./news_journalist_report_news.pdf
+[3 <./news_news_managers_report.pdf> <./news_news_journalist_report.pdf
 
-pdfTeX warning: pdflatex (file ./news_journalist_report_news.pdf): PDF inclusio
+pdfTeX warning: pdflatex (file ./news_news_journalist_report.pdf): PDF inclusio
 n: multiple pdfs with page group included in a single page
->]
-<effective_bias_drift.pdf, id=247, 462.52798pt x 346.89601pt>
+>] <effective_bias_drift.pdf, id=156, 462.52798pt x 346.89601pt>
 File: effective_bias_drift.pdf Graphic file (type pdf)
+
 <use effective_bias_drift.pdf>
-Package pdftex.def Info: effective_bias_drift.pdf  used on input line 24.
+Package pdftex.def Info: effective_bias_drift.pdf used on input line 48.
 (pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<effective_bias_price_quality.pdf, id=248, 462.52798pt x 346.89601pt>
+
+<effective_bias_price_quality.pdf, id=157, 462.52798pt x 346.89601pt>
 File: effective_bias_price_quality.pdf Graphic file (type pdf)
+
 <use effective_bias_price_quality.pdf>
-Package pdftex.def Info: effective_bias_price_quality.pdf  used on input line 2
-4.
-(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<reporting_probability_drift.pdf, id=249, 462.52798pt x 346.89601pt>
-File: reporting_probability_drift.pdf Graphic file (type pdf)
-<use reporting_probability_drift.pdf>
-Package pdftex.def Info: reporting_probability_drift.pdf  used on input line 25
+Package pdftex.def Info: effective_bias_price_quality.pdf used on input line 48
 .
 (pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
-<reporting_probability_price_quality.pdf, id=250, 462.52798pt x 346.89601pt>
-File: reporting_probability_price_quality.pdf Graphic file (type pdf)
-<use reporting_probability_price_quality.pdf>
-Package pdftex.def Info: reporting_probability_price_quality.pdf  used on input
- line 25.
+
+<reporting_probability_drift.pdf, id=158, 462.52798pt x 346.89601pt>
+File: reporting_probability_drift.pdf Graphic file (type pdf)
+
+<use reporting_probability_drift.pdf>
+Package pdftex.def Info: reporting_probability_drift.pdf used on input line 49.
+
 (pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
 
-Overfull \hbox (16.7718pt too wide) in paragraph at lines 23--27
-[] 
+<reporting_probability_price_quality.pdf, id=159, 462.52798pt x 346.89601pt>
+File: reporting_probability_price_quality.pdf Graphic file (type pdf)
+
+<use reporting_probability_price_quality.pdf>
+Package pdftex.def Info: reporting_probability_price_quality.pdf used on input 
+line 49.
+(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
+
+Overfull \hbox (16.7718pt too wide) in paragraph at lines 47--51
+ [] 
  []
 
-[3 <./effective_bias_drift.pdf> <./effective_bias_price_quality.pdf
+[4 <./effective_bias_drift.pdf> <./effective_bias_price_quality.pdf
 
 pdfTeX warning: pdflatex (file ./effective_bias_price_quality.pdf): PDF inclusi
 on: multiple pdfs with page group included in a single page
@@ -255,22 +263,31 @@ n: multiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./reporting_probability_price_quality.pdf): PDF 
 inclusion: multiple pdfs with page group included in a single page
->] (./filenames.aux) ) 
+>]
+<news_reporting_probability_reporting_probability.pdf, id=301, 462.52798pt x 34
+6.89601pt>
+File: news_reporting_probability_reporting_probability.pdf Graphic file (type p
+df)
+ <use news_reporting_probability_reporting_probability.pdf>
+Package pdftex.def Info: news_reporting_probability_reporting_probability.pdf u
+sed on input line 61.
+(pdftex.def)             Requested size: 231.26341pt x 173.44757pt.
+ [5 <./news_reporting_probability_reporting_probability.pdf>] (./filenames.aux)
+ ) 
 Here is how much of TeX's memory you used:
- 1481 strings out of 492615
- 23046 string characters out of 6131391
- 82121 words of memory out of 5000000
- 5399 multiletter control sequences out of 15000+600000
+ 1593 strings out of 493013
+ 23988 string characters out of 6135682
+ 80143 words of memory out of 5000000
+ 5138 multiletter control sequences out of 15000+600000
  3948 words of font info for 15 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,11n,25p,272b,206s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr10.pfb>
-Output written on filenames.pdf (3 pages, 123970 bytes).
+ 39i,12n,25p,233b,345s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on filenames.pdf (5 pages, 110814 bytes).
 PDF statistics:
- 401 PDF objects out of 1000 (max. 8388607)
- 116 compressed objects within 2 object streams
+ 349 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -62,7 +62,7 @@ class Variable:
 
 def plot(x,Y,
 	t = None, 
-	_linestyles	=	['-','--'],
+	_linestyles	=	['--','-'],
 	_linewidths	=	[2,2],
 	_colors		=	['k','k'],
 	xticks		=	None,
