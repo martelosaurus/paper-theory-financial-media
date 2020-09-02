@@ -1,7 +1,7 @@
 from journalism import *
 
 E1 = Equilibrium()
-E2 = Equilibrium(varphi = 10.)
+E2 = Equilibrium(varphi = 1.)
 
 #-------------------------------------------------------------------------------
 # policy functions
@@ -29,7 +29,7 @@ plot(E2.delta,[E1.pi_of_delta,E2.pi_of_delta])
 # empirical implications
 
 # probability of reporting and bias
-plot(E1.beta,[E1.pi_of_delta,E1.pi_of_delta])
+plot(E1.beta,[E1.pi_of_delta],E1.delta)
 
 # drift
 plot(E1.pi_of_delta,[E1.Omega],E1.delta)

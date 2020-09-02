@@ -6,6 +6,16 @@ from copy import deepcopy
 
 rc('font',size=14)
 
+# ------------------------------------------------------------------------------
+# utilities
+
+def ylim_xpnd(vran,fudge=.1):
+	if vran is not None:
+		ran = vran[1]-vran[0]
+		return (vran[0]-fudge*ran,vran[1]+fudge*ran)
+	else:
+		return vran
+
 # ==============================================================================
 # MODEL FUNCTIONS
 # ==============================================================================
@@ -98,8 +108,6 @@ def plot(x,Y,
 		t_plt = np.linspace(t.vran[0],t.vran[1],n_plt)
 		x_plt = x.func(t_plt)
 
-		
-
 	# plot 
 	for y in Y:
 
@@ -129,19 +137,15 @@ def plot(x,Y,
 		pass
 
 	# ylabel (or legend)
-	if len(Y) > 1:
-		plt.legend([y.name + " " + y.symb for y in Y])
-	else:
-		plt.ylabel(Y[0].name + " " + Y[0].symb)
-		plt.ylim(Y[0].vran)
+	plt.ylabel(Y[0].name + " " + Y[0].symb)
+	plt.ylim(ylim_xpnd(Y[0].vran))
 
 	# TODO: this assumes the first yticks are the correct ones
 	if Y[0].vran is not None:
-		#plt.yticks(**Y[0].tick)
-		pass
+		plt.yticks(**Y[0].tick)
 
 	# misc
-	#plt.grid()	
+	plt.grid()	
 	plt.tight_layout()
 
 	# save
@@ -213,15 +217,15 @@ class Equilibrium:
 		
 		# parameter checks
 		if alpha > 1. or alpha < 0.:
-				raise Exception('alpha > 1. or alpha < 0.')
+			raise Exception('alpha > 1. or alpha < 0.')
 		if kappa < 0.:
-				raise Exception('kappa < 0.')
+			raise Exception('kappa < 0.')
 		if chi < 0.:
-				raise Exception('chi < 0.')
+			raise Exception('chi < 0.')
 		if b_bar > b_bar_max:
-				raise Exception('b_bar > b_bar_max')
+			raise Exception('b_bar > b_bar_max')
 		if c_bar < c_bar_min:
-				pass #raise Exception('c_bar < c_bar_min')
+			pass #raise Exception('c_bar < c_bar_min')
 
 		@np.vectorize
 		def _beta(delta):
@@ -270,9 +274,9 @@ class Equilibrium:
 
 		@np.vectorize
 		def _Omega(delta,beta):
-				"""drift"""
-				return (_pi_R(delta,beta)*(rho*beta)+
-						(1.-_pi_R(delta,beta))*(-rho*delta))
+			"""drift"""
+			return (_pi_R(delta,beta)*(rho*beta)+
+				(1.-_pi_R(delta,beta))*(-rho*delta))
 
 		# ======================================================================
 		# VARIABLES
